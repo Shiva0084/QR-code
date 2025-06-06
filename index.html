@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>A Tiny Puzzle First 💘</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(to bottom right, #1a1a2e, #0f3460);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #e94560aa;
+      text-align: center;
+      max-width: 400px;
+    }
+
+    input {
+      padding: 10px;
+      width: 80%;
+      font-size: 16px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 25px;
+      font-size: 16px;
+      background-color: #e94560;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff6f91;
+    }
+
+    #message {
+      margin-top: 15px;
+      color: pink;
+    }
+
+    #hintBtn {
+      background: transparent;
+      color: #aaa;
+      font-size: 14px;
+      text-decoration: underline;
+      margin-top: 10px;
+      cursor: pointer;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Hi Love 💖</h2>
+    <p>Before your surprise, answer this:</p>
+    <p><strong>“What’s my nickname for you?”</strong></p>
+    <input type="text" id="answer" placeholder="Type it here..." />
+    <br>
+    <button onclick="checkAnswer()">Unlock</button>
+    <button id="hintBtn" onclick="sendHint()">Need a hint? 💬</button>
+    <div id="message"></div>
+  </div>
+
+  <!-- Confetti Script -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+  <script>
+    const correctAnswer = "pikachu"; // ← change to your answer
+    const maxAttempts = 2;
+    let attempts = Number(localStorage.getItem("gatekeeper_attempts")) || 0;
+
+    function checkAnswer() {
+      if (attempts >= maxAttempts) {
+        document.getElementById("message").textContent = "You've used both tries! Message your boyfriend 😘";
+        return;
+      }
+
+      const input = document.getElementById('answer').value.toLowerCase().trim();
+
+      if (input === correctAnswer) {
+        launchConfetti();
+        document.getElementById('message').textContent = "Yay! Unlocking your surprise... 🎉";
+        setTimeout(() => {
+          window.location.href = "surprise.html";
+        }, 2000);
+      } else {
+        attempts++;
+        localStorage.setItem("gatekeeper_attempts", attempts);
+
+        if (attempts >= maxAttempts) {
+          document.getElementById('message').textContent = "You've used both tries! Message your boyfriend 😘";
+        } else {
+          document.getElementById('message').textContent = `Wrong answer! You have ${maxAttempts - attempts} try left.`;
+        }
+      }
+    }
+
+    function sendHint() {
+      const message = encodeURIComponent("Hey! I need a hint for the puzzle 😅");
+      window.open("https://wa.me/919408577970?text=" + message, "_blank");
+    }
+
+    function launchConfetti() {
+      confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.6 }
+      });
+    }
+  </script>
+
+</body>
+</html>

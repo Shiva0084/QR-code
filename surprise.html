@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>5 Months, 5 Letters - Romantic Edition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Georgia&display=swap');
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #f0e9ff;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            animation: glowPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                background-color: #0f3460;
+            }
+
+            50% {
+                background-color: #1a1a2e;
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: #e94560;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #e94560;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: rgba(20, 20, 40, 0.85);
+            border-radius: 15px;
+            padding: 25px 30px;
+            box-shadow: 0 0 15px #e94560aa;
+        }
+
+        .letter {
+            display: none;
+            line-height: 1.6;
+            font-size: 18px;
+            padding: 15px 10px;
+            border-left: 4px solid #e94560;
+            margin-bottom: 30px;
+            background: rgba(40, 40, 70, 0.5);
+            border-radius: 8px;
+            box-shadow: 0 0 8px #e9456033;
+        }
+
+        .letter.active {
+            display: block;
+            animation: fadeInGlow 1s ease forwards;
+        }
+
+        @keyframes fadeInGlow {
+            from {
+                opacity: 0;
+                transform: scale(0.98);
+                box-shadow: 0 0 0 transparent;
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+                box-shadow: 0 0 15px #e94560aa;
+            }
+        }
+
+        .letter-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #ff6f91;
+            text-shadow: 0 0 8px #ff6f91aa;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .nav button {
+            background: #e94560;
+            color: #fff;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: 600;
+            box-shadow: 0 0 15px #e94560aa;
+            transition: background 0.3s ease;
+            user-select: none;
+        }
+
+        .nav button:hover {
+            background: #ff6f91;
+            box-shadow: 0 0 25px #ff6f91cc;
+        }
+
+        #audio-player {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        audio {
+            outline: none;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #e9456033;
+        }
+
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center center / contain;
+            animation: floatHearts 8s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes floatHearts {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .tracker {
+            margin-bottom: 30px;
+            padding: 15px 20px;
+            border: 2px dashed #ff6f91;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tracker ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .tracker li {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #f8d8ff;
+        }
+
+        .tracker .status {
+            font-weight: bold;
+            float: right;
+            color: #f48fb1;
+        }
+
+        .signature {
+            margin-top: 30px;
+            font-weight: bold;
+        }
+
+        .date {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+
+        .secret {
+            background-color: #fdf2f8;
+            border-left: 4px solid #e84393;
+            padding: 20px;
+            margin-top: 15px;
+            font-style: italic;
+            font-size: 13.5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>💌 5 Months, 5 Letters 💌</h1>
+
+    <div id="audio-player">
+        <audio controls autoplay loop preload="auto">
+            <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <div class="container">
+        <div class="tracker">
+            <h2 style="text-align:center; color:#ff6f91;">📍 Love Letter Tracker</h2>
+            <ul id="trackerList">
+                <li id="check1">💌 Month 1 – <span class="status">Locked ❌</span></li>
+                <li id="check2">💌 Month 2 – <span class="status">Locked ❌</span></li>
+                <li id="check3">💌 Month 3 – <span class="status">Locked ❌</span></li>
+                <li id="check4">💌 Month 4 – <span class="status">Locked ❌</span></li>
+                <li id="check5">💌 Month 5 – <span class="status">Locked ❌</span></li>
+                <li id="checkBonus" style="display:none;">🎁 Bonus Letter – <span class="status">Unlocked 💖</span></li>
+            </ul>
+        </div>
+
+        <div class="nav">
+            <button onclick="showLetter(1)">Month 1</button>
+            <button onclick="showLetter(2)">Month 2</button>
+            <button onclick="showLetter(3)">Month 3</button>
+            <button onclick="showLetter(4)">Month 4</button>
+            <button onclick="showLetter(5)">Month 5</button>
+            <button id="bonusBtn" onclick="showBonusLetter()" style="display:none;">🎁 Secret Bonus Letter</button>
+
+        </div>
+
+        <!-- Letters (all hidden initially) -->
+        <div id="letter1" class="letter">
+            <div class="letter-title">Month 1 – “The Spark”</div>
+            <p class="date">January 29 – February 28, 2025</p>
+            <p>My Dearest Star,</p>
+
+            <p>They say the best stories begin when you least expect them — and ours started in the middle of a small
+                crowd, on a regular day that turned out to be anything but ordinary.</p>
+
+            <p>Republic Day 2025 — I didn’t know you, you didn’t know me. And yet, something about that day still
+                lingers in my heart. </p>
+
+            <p>Then came <strong>29th January</strong>, the day that now holds a special place in my soul. It was just a
+                brief virtual glimpse of you, but something about you stayed with me. Something warm. Something
+                unforgettable. I didn’t realize it then, but that was the beginning — the first real moment where the
+                spark turned into a flame.</p>
+
+            <p>We met <strong>for the first time on 3rd February</strong>, outside the IT lab, and even though it was
+                short, it was enough. That memory is etched in my heart. I still remember the butterflies, the shy
+                excitement, and how my world felt just a little brighter after.</p>
+
+            <p>Our chats grew deeper. Our connection felt easy, natural — as if our souls already knew each other. I
+                found myself waiting to hear from you, to talk to you, to share even the tiniest bits of my day with
+                you. And you listened — really listened — like no one ever had before.</p>
+
+            <p>The more I got to know you, the more I realized something special was unfolding. Even when <strong>28th
+                    February</strong> didn’t go as planned — even though I wanted to ask you something that day and
+                everything flopped — I saw a deeper beauty in how you were just <em>you</em>. Tired, human, real — and
+                still, the person I wanted to be next to.</p>
+
+            <p>That first month? It changed everything. It lit the spark that still burns in me every single day.</p>
+
+            <p class="signature">Love,<br>Your Pikachu 💛</p>
+        </div>
+
+        <div id="letter2" class="letter">
+            <div class="letter-title">Month 2 – “Getting Closer”</div>
+            <p class="date">March 1 – March 31, 2025</p>
+            <p>My Sweetu,</p>
+
+            <p>If the first month was the spark, then this was when the fire truly caught on.</p>
+
+            <p><strong>6th March 2025</strong> — I’ll never forget that day. I was nervous, clumsy, hopeful, and
+                hopelessly in love. I still laugh thinking about my words:<br>
+                <em>"Would you be my Ash? 😳"</em><br>
+                Corny? Maybe. Sincere? Absolutely.
+            </p>
+
+            <p>And you said yes.<br>
+                That moment — that <em>yes</em> — became a part of me forever.</p>
+
+            <p>After that, everything felt warmer, more magical. Although we were far away after that but still. We
+                weren’t just two people talking anymore — we were <em>us</em>. Sharing little things, comforting each
+                other, talking for hours about life, dreams, random thoughts. My heart started learning a new rhythm —
+                and it beat with your name.</p>
+
+            <p>You made me feel seen. Valued. Loved. Not for anything big or dramatic, but just for being who I was. And
+                I began falling — deeper than I ever imagined possible.</p>
+
+            <p>I remember the joy of being around you. The way time would bend when we were together. Every hug, every
+                smile, every silly nickname we gave each other — they became pieces of this mosaic we were slowly
+                building.</p>
+
+            <p>We were getting closer, not just in time spent but in soul. I started to understand your silences, your
+                laughter, your tired eyes after long days. And somewhere in between all that, I saw the girl I wanted to
+                grow with.</p>
+
+            <p>I was no longer just me. I was <em>your</em> Deepu. Your Pikachu. Your person. And that feeling — it was
+                everything.</p>
+
+            <p class="signature">Forever close,<br>Your Deepu 💛</p>
+        </div>
+
+        <div id="letter3" class="letter">
+            <div class="letter-title">Month 3 – “Falling Deeper”</div>
+            <p class="date">April 1 – April 30, 2025</p>
+            <p>My Gunn,</p>
+
+            <p>This month was a beautiful chaos — <em>end sems, stress, revision marathons</em> — and yet, somehow,
+                amidst the madness, we created some of the most unforgettable memories of our relationship.</p>
+
+            <p>We balanced the pressure of exams with warmth and comfort. Cheering each other on, motivating when one of
+                us felt tired, reminding each other to rest, to eat, to breathe. It was exhausting — but we did it,
+                together. And in doing so, we grew even closer.</p>
+
+            <p>But you know what moment changed everything for me?</p>
+
+            <p><strong>Our first kiss.</strong></p>
+
+            <p>It wasn’t perfect in the cinematic sense — but it was <em>ours</em>. Honest. Raw. Magical. That moment
+                still plays in my mind like my favorite movie scene — where everything goes quiet and the world
+                disappears, leaving just <em>us</em>.</p>
+
+            <p>That kiss wasn't just physical — it was a promise. A silent confession. A bridge between two hearts that
+                were already falling, but now were freefalling — completely and irreversibly.</p>
+
+            <p>This month, I understood the depth of what we had. I realized I wasn’t just falling in love — I
+                <strong>was</strong> in love. Fully. Fiercely.</p>
+
+            <p>And even in the madness of exams, your voice, your laugh, your presence — kept me sane. You became my
+                calm and my spark, all at once.</p>
+
+            <p>Here’s to kisses, to chaos, to falling deeper —<br>
+                And most importantly, to <strong>you</strong>.</p>
+
+            <p class="signature">With all my heart,<br>Your forever Starboy 💛</p>
+        </div>
+
+        <div id="letter4" class="letter">
+            <div class="letter-title">Month 4 – “Growing Together”</div>
+            <p class="date">May 1 – May 31, 2025</p>
+            <p>My Swasu,</p>
+
+            <p>This month wasn’t easy. Not for me — and I know, maybe not for you either.</p>
+
+            <p>Being away from you, truly away, felt like a storm brewing in my chest every day. I tried to stay strong.
+                I tried to keep my mind busy — music, classes, studies, distractions of all kinds. But no matter what I
+                did, one thing stayed constant:</p>
+
+            <p><strong>I missed you. Every single day.</strong><br>
+                Not a moment passed without your name echoing somewhere in my heart.</p>
+
+            <p> And yet, even through the distance, through all the noise and silence, there was something beautiful we
+                never let go of — those little rituals, the lifelines.<br>
+                <strong>Not one day went without a “Good morning” or a “Good night.”</strong><br>
+                And that, in itself, is love — steady, soft, and resilient.
+            </p>
+
+            <p>There were storms in my head — doubts, fears, moments when I questioned everything.<br>
+                <em>“What if I lose her?”</em><br>
+                That thought haunts me sometimes. And I wish I could erase it, but maybe it’s just the cost of loving
+                someone so much that the idea of losing them feels unbearable.
+            </p>
+
+            <p>But despite all the questions and chaos, one truth remained:<br>
+                <strong>I don’t want anyone else. I want you. Just you.</strong>
+            </p>
+
+            <p>This month taught me how deeply I need your presence — not just physically, but emotionally, spiritually.
+                I realized how much I rely on your love, your voice, your support. And how, even from miles away, you
+                still manage to make my heart feel full.</p>
+
+            <p>I know we’ve had our share of ups and downs. I know we’re still learning how to be strong from afar. But
+                if growing together means facing storms like these and still choosing each other — again and again —
+                then I’ll walk through every season with you.</p>
+
+            <p>Because no matter how hard it gets, I’ll always find my way back to you.</p>
+
+            <p>You are my comfort. My fear. My peace. My storm.<br>
+                My sweetest pain and my warmest home.</p>
+
+            <p>Let’s keep growing — together. Even in distance.<br>
+                Even in doubt.</p>
+
+            <p class="signature">With all the love I carry,<br>Your Deepu 💛</p>
+        </div>
+
+        <div id="letter5" class="letter">
+            <div class="letter-title">Month 5 – “Still With You”</div>
+            <p class="date">June 1 – June 30, 2025</p>
+            <p>My Star,</p>
+
+            <p>As we step into our fifth month, I’m amazed by how far we’ve come — and how much more I’ve fallen for
+                you, every single day. It’s crazy to think that soon we’ll be celebrating six months together. Half a
+                year. Half a beautiful chapter of something I never imagined I’d be lucky enough to have.</p>
+
+            <p>You’re special — you know that, right?<br>
+                And I try, in my own ways, to remind you of that — through words, through tiny acts, through the time I
+                give you from my heart. But sometimes, even amidst all this love, there are things I find hard to admit.
+                Things like… insecurity.</p>
+
+            <p>I know I’ve been a little off lately. I asked you something on <strong>3rd May</strong>, and I know it
+                wasn’t the smartest way to express myself. Maybe I was scared. Maybe I was foolish. Or maybe I just love
+                you so much that the fear of losing you sometimes grows too loud in my head.</p>
+
+            <p>I’m trying, I really am. I try to stay calm, to trust, to remind myself of everything we’ve built. But
+                sometimes, my heart runs ahead of me — dreaming of you, loving you deeply — and then panicking at the
+                thought of not being enough.</p>
+
+            <p>You are in my sweetest dreams — and also in my worst nightmares. That’s how much space you hold in me.
+            </p>
+
+            <p>I’ll keep trying to be better — for you, for us. And if there are moments when I stumble, when my fear
+                outweighs my reason, I just ask you one thing:<br>
+                <strong>Handle me with care.</strong>
+            </p>
+
+            <p>Because every boy, I think, is a little insecure for his girl — especially when she’s as rare and radiant
+                as you.<br>
+                You are not just my girl.<br>
+                You’re my Star — made of stardust, my little universe, my miracle.</p>
+
+            <p class="signature">With you always,<br>Your Pikachu 💛</p>
+        </div>
+        <div id="bonusLetter" class="letter">
+            <div class="letter-title">Secret Bonus Letter – “For All the Tomorrows. The One for You, and You Only”</div>
+            <p>My Cutu,</p>
+
+            <p>This isn’t just another letter. This is a part of me I rarely show. The kind that stays hidden beneath
+                smiles, jokes, or even the usual “I love you.”</p>
+
+            <p>You once said to me:<br>
+                <em>“You will have to feel the pain, you will cry, but you need to have patience.”</em><br>
+                And I didn’t get it then. Not fully. But now I do.
+            </p>
+
+            <p>Yes — I’ve cried. I’ve overthought. I’ve imagined hundreds of outcomes, not all of them pretty. But I’ve
+                also held onto something stronger than all of that:<br>
+                <strong>You. Your love. Us.</strong>
+            </p>
+
+            <p>I want to be better, truly. I want to change the parts of me that get in the way of loving you the way
+                you deserve. But sometimes a scary thought slips in —
+                What if, in trying to change, I lose something essential in me?
+                What if I become too harsh? Too closed off? Too unlike myself?</p>
+
+            <p>But I guess all of that… it’s just fear talking.</p>
+
+            <p>Because deep down, I know what I want.<br>
+                I want to be <strong>that one guy</strong> — the guy who earns your love, who is made for your love, who
+                fits into your story so seamlessly that no one else could even try.</p>
+
+            <p><strong>And I won’t share your love with anyone. I can’t. I won’t.</strong><br>
+                Because your love feels like it was written for me — and I want to fight every part of me until I become
+                the one who’s worthy of it.</p>
+
+            <p>I don’t care how long it takes. I’ll wait. I’ll grow. I’ll break and rebuild.<br>
+                But I’ll do it — because <em>you’re my endgame.</em></p>
+
+            <p>You’re not just someone I love.<br>
+                You’re the one I want to keep, protect, and hold in every version of forever.</p>
+            <p>You’ve made it through every chapter — and I’ve loved you more in every word.</p>
+            <p>This one isn’t tied to a month, or a moment... it’s just my forever promise to you.</p>
+            <p>To the girl who turned my ordinary days into poetry — thank you.</p>
+            <p>I love you. For every day ahead. ❤️</p>
+            <p>Yours forever, Pikachu ⚡</p>
+        </div>
+
+    </div>
+
+    <div class="hearts-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script>
+        const passwords = {
+            1: "republicday",
+            2: "ash",
+            3: "firstkiss",
+            4: "GMGN",
+            5: "cutudeepupromise"
+        };
+
+        const attemptLimit = 3;
+
+        function showLetter(n) {
+            const letterKey = `letter${n}`;
+            const isUnlocked = localStorage.getItem(`unlocked_${letterKey}`);
+
+            if (isUnlocked === "true") {
+                displayLetter(n);
+            } else {
+                const attempts = parseInt(localStorage.getItem(`attempts_${letterKey}`)) || 0;
+
+                if (attempts >= attemptLimit) {
+                    alert("You've used all 3 tries! 🥺\nAsk your boyfriend for the answer 😘");
+                    return;
+                }
+
+                const userInput = prompt(`Enter the secret key for Month ${n} 💌:`);
+
+                if (userInput === null) return;
+
+                if (userInput.trim().toLowerCase() === passwords[n]) {
+                    localStorage.setItem(`unlocked_${letterKey}`, "true");
+                    displayLetter(n);
+                    alert("Correct! The letter is now unlocked forever 💖");
+                    confetti();
+                } else {
+                    const newAttempts = attempts + 1;
+                    localStorage.setItem(`attempts_${letterKey}`, newAttempts);
+                    if (newAttempts >= attemptLimit) {
+                        alert("Wrong again! 😢 You’ve used all 3 tries.\nNow you need to ask your boyfriend 😘");
+                    } else {
+                        alert(`Wrong key! ${3 - newAttempts} tries left.`);
+                    }
+                }
+            }
+        }
+
+        function displayLetter(n) {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById('letter' + i).classList.remove('active');
+            }
+            setTimeout(() => {
+                document.getElementById('letter' + n).classList.add('active');
+            }, 400);
+            alert(`Loading memories from Month ${n}... 📖`);
+            updateTracker();
+        }
+
+        // Floating heart animation
+        function createHearts() {
+            const container = document.querySelector('.hearts-container');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = 5 + Math.random() * 5 + 's';
+            container.appendChild(heart);
+            setTimeout(() => heart.remove(), 10000);
+        }
+        setInterval(createHearts, 500);
+
+        // Optional: Love message popup once per day
+        const lastShown = localStorage.getItem("lastLovePopup");
+        const today = new Date().toDateString();
+        if (lastShown !== today) {
+            setTimeout(() => {
+                alert("💌 Just a reminder: You’re my favorite person. Forever. 💖");
+                localStorage.setItem("lastLovePopup", today);
+            }, 3000);
+        }
+        function checkAllUnlocked() {
+            let allUnlocked = true;
+            for (let i = 1; i <= 5; i++) {
+                if (localStorage.getItem(`unlocked_letter${i}`) !== "true") {
+                    allUnlocked = false;
+                    break;
+                }
+            }
+            if (allUnlocked) {
+                document.getElementById('bonusBtn').style.display = "inline-block";
+            }
+        }
+        checkAllUnlocked();
+
+        function showBonusLetter() {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById('letter' + i).classList.remove('active');
+            }
+            document.getElementById('bonusLetter').classList.add('active');
+        }
+        function updateTracker() {
+            let unlocked = 0;
+            for (let i = 1; i <= 5; i++) {
+                if (localStorage.getItem(`unlocked_letter${i}`) === "true") {
+                    document.querySelector(`#check${i} .status`).textContent = "Unlocked ✅";
+                    document.querySelector(`#check${i} .status`).style.color = "#90ee90";
+                    unlocked++;
+                }
+            }
+
+            if (unlocked === 5) {
+                document.getElementById("checkBonus").style.display = "list-item";
+                document.querySelector(`#checkBonus .status`).textContent = "Unlocked 💖";
+            }
+        }
+
+        updateTracker(); // Call on page load
+
+
+    </script>
+</body>
+
+</html>
